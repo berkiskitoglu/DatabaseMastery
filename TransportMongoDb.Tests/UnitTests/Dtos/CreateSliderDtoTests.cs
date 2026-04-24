@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TransportMongoDb.Tests
+namespace TransportMongoDb.Tests.UnitTests.Dtos
 {
     public class CreateSliderDtoTests
     {
-
         // Unit Tests
 
         [Fact]
@@ -38,3 +37,4 @@ namespace TransportMongoDb.Tests
         }
     }
 }
+

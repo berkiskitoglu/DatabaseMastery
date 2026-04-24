@@ -7,14 +7,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TransportMongoDb.Tests
+namespace TransportMongoDb.Tests.UnitTests.Controllers
 {
-    public class SliderControllerUnitTests
+    public class SliderControllerTests
     {
         private readonly Mock<ISliderService> _mockService;
         private readonly SliderController _controller;
 
-        public SliderControllerUnitTests()
+        public SliderControllerTests()
         {
             _mockService = new Mock<ISliderService>();
             _controller = new SliderController(_mockService.Object);

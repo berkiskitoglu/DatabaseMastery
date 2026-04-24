@@ -7,16 +7,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TransportMongoDb.Tests
+namespace TransportMongoDb.Tests.UnitTests.Services
 {
-    public class SliderServiceUnitTests
+    public class SliderServiceTests
     {
         // Unit Test With Mock
         private readonly Mock<IGenericRepository<Slider>> _mockRepository;
         private readonly SliderService _sliderService;
         private readonly Mock<IMapper> _mockMapper;
 
-        public SliderServiceUnitTests()
+        public SliderServiceTests()
         {
             _mockRepository = new Mock<IGenericRepository<Slider>>();
             _mockMapper = new Mock<IMapper>();

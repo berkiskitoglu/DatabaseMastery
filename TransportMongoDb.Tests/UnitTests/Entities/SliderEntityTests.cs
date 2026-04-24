@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TransportMongoDb.Tests
+namespace TransportMongoDb.Tests.UnitTests.Entities
 {
     public class SliderEntityTests
     {
