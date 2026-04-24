@@ -24,12 +24,12 @@ jobs:
       run: dotnet build ./DatabaseMastery.slnx --configuration Release
   
     - name: Publish
-      run: dotnet publish ./DatabaseMastery.TransportMongoDb.csproj --configuration Release --no-build --output '${{secrets.AZURE_PUBLISH_PROFILE}}'
+      run: dotnet publish ./DatabaseMastery.TransportMongoDb/DatabaseMastery.TransportMongoDb.csproj --configuration Release --no-build --output '${{  secrets.AZURE_PUBLISH_PROFILE  }}'
 
     - name: Deployment
       uses: azure/webapps-deploy@v2
       with:
         app-name: transport-prod-tr
-        publish-profile: '${{secrets.AZURE_PUBLISH_PROFILE}}'
+        publish-profile: '${{  secrets.AZURE_PUBLISH_PROFILE  }}'
         package: './publish'
 
