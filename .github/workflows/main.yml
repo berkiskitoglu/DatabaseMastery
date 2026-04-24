@@ -1,35 +1,35 @@
-name : Publish
+name: Publish
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
   push:
-    branches: 
-    - master
+    branches:
+      - master
+
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-  
-    - name: Setup .Net
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '10.0.x'
-  
-    - name: Restore
-      run: dotnet restore ./DatabaseMastery.slnx
-  
-    - name: Build
-      run: dotnet build ./DatabaseMastery.slnx --configuration Release
-  
-    - name: Publish
-      run: dotnet publish ./DatabaseMastery.TransportMongoDb/DatabaseMastery.TransportMongoDb.csproj --configuration Release --no-build --output '${{  secrets.AZURE_PUBLISH_PROFILE  }}'
+      - uses: actions/checkout@v4
 
-    - name: Deployment
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: transport-prod-tr
-        publish-profile: '${{  secrets.AZURE_PUBLISH_PROFILE  }}'
-        package: './publish'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
 
+      - name: Restore
+        run: dotnet restore ./DatabaseMastery.slnx
+
+      - name: Build
+        run: dotnet build ./DatabaseMastery.slnx --configuration Release
+
+      - name: Publish
+        run: dotnet publish ./DatabaseMastery.TransportMongoDb/DatabaseMastery.TransportMongoDb.csproj --configuration Release --no-build --output ./publish
+
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: transport-prod-tr
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./publish
