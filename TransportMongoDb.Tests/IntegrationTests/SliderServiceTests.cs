@@ -12,6 +12,7 @@ using Xunit;
 
 namespace TransportMongoDb.Tests.IntegrationTests
 {
+    [Collection("Sequential")]
     public class SliderServiceTests : IAsyncLifetime
     {
 
@@ -20,18 +21,22 @@ namespace TransportMongoDb.Tests.IntegrationTests
         private IGenericRepository<Slider> _repository;
         private IMapper _mapper;
         private ISliderService _sliderService;
+        private string _connectionString;
         private readonly string _testDatabaseName;
 
         public SliderServiceTests()
         {
             _testDatabaseName = "test_db_" + Guid.NewGuid().ToString();
+            _connectionString =
+    Environment.GetEnvironmentVariable("DatabaseSettings__ConnectionString")
+    ?? "mongodb://localhost:27017";
         }
 
         // Her test öncesi çalışır
         public async Task InitializeAsync()
         {
             // MongoDB'ye bağlan
-            _mongoClient = new MongoClient("mongodb://localhost:27017");
+            _mongoClient = new MongoClient();
             _database = _mongoClient.GetDatabase(_testDatabaseName);
 
             // Repository oluştur 
