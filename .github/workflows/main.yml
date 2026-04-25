@@ -31,7 +31,9 @@ jobs:
 
       - name: Integration Tests
         run: dotnet test ./DatabaseMastery.slnx --no-build --configuration Release --filter "FullyQualifiedName~IntegrationTests"
-
+        env:
+          DatabaseSettings__ConnectionString: ${{ secrets.MONGO_CONN }}
+    
       - name: Publish
         run: dotnet publish ./DatabaseMastery.TransportMongoDb/DatabaseMastery.TransportMongoDb.csproj --configuration Release --no-build --output './publish'
 
