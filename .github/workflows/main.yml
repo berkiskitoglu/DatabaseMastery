@@ -24,6 +24,9 @@ jobs:
       - name: Build
         run: dotnet build ./DatabaseMastery.slnx --configuration Release
 
+      - name: Run Tests
+        run: dotnet test ./DatabaseMastery.slnx --no-build --verbosity -normal
+
       - name: Publish
         run: dotnet publish ./DatabaseMastery.TransportMongoDb/DatabaseMastery.TransportMongoDb.csproj --configuration Release --no-build --output './publish'
 
