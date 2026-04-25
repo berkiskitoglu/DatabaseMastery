@@ -17,7 +17,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
-
+      - name: Create .env file
+        run: echo "DatabaseSettings__ConnectionString=${{ secrets.MONGO_CONN }}" > .env
+      
       - name: Restore
         run: dotnet restore ./DatabaseMastery.slnx
 
@@ -29,8 +31,6 @@ jobs:
 
       - name: Integration Tests
         run: dotnet test ./DatabaseMastery.slnx --no-build --configuration Release --filter "FullyQualifiedName~IntegrationTests"
-        env:
-          DatabaseSettings__ConnectionString: ${{ secrets.MONGO_CONN }}
 
       - name: Publish
         run: dotnet publish ./DatabaseMastery.TransportMongoDb/DatabaseMastery.TransportMongoDb.csproj --configuration Release --no-build --output './publish'
