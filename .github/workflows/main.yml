@@ -24,14 +24,14 @@ jobs:
       - name: Build
         run: dotnet build ./DatabaseMastery.slnx --configuration Release
 
-      - name: Run Unit Tests
-        run: dotnet test ./DatabaseMastery.slnx --no-build --configuration Release --filter "FullyQualifiedName!~IntegrationTests" --verbosity normal
+      - name: Unit Tests
+        run: dotnet test ./DatabaseMastery.slnx --no-build --configuration Release --filter "FullyQualifiedName!~IntegrationTests"
 
-      - name: Run Integration Tests
-        run: dotnet test ./DatabaseMastery.slnx --no-build --configuration Release --filter "FullyQualifiedName~IntegrationTests" --verbosity normal
+      - name: Integration Tests
+        run: dotnet test ./DatabaseMastery.slnx --no-build --configuration Release --filter "FullyQualifiedName~IntegrationTests"
         env:
           DatabaseSettings__ConnectionString: ${{ secrets.MONGO_CONN }}
-          
+
       - name: Publish
         run: dotnet publish ./DatabaseMastery.TransportMongoDb/DatabaseMastery.TransportMongoDb.csproj --configuration Release --no-build --output './publish'
 
