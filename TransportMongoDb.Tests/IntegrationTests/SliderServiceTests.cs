@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using Castle.Core.Logging;
+﻿using DotNetEnv;
+using AutoMapper;
 using DatabaseMastery.TransportMongoDb.Dtos.SliderDtos;
 using DatabaseMastery.TransportMongoDb.Entities;
 using DatabaseMastery.TransportMongoDb.Mapping;
@@ -12,7 +12,6 @@ using Xunit;
 
 namespace TransportMongoDb.Tests.IntegrationTests
 {
-    [Collection("Sequential")]
     public class SliderServiceTests : IAsyncLifetime
     {
 
@@ -26,25 +25,40 @@ namespace TransportMongoDb.Tests.IntegrationTests
 
         public SliderServiceTests()
         {
-            _testDatabaseName = "test_db_" + Guid.NewGuid().ToString();
+            // ✅ Solution folder'ı bul (DatabaseMastery folder'ı)
+            var assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            var binPath = Path.GetDirectoryName(assemblyLocation);  // ...bin/Debug/net10.0
+            var testProjectPath = Directory.GetParent(binPath)?.Parent?.Parent?.FullName;  // TransportMongoDb.Tests
+            var solutionFolder = Directory.GetParent(testProjectPath)?.FullName;  // DatabaseMastery
+
+            var envPath = Path.Combine(solutionFolder ?? "", ".env");
+
+            if (!File.Exists(envPath))
+            {
+                throw new Exception($".env file not found at {envPath}");
+            }
+
+            DotNetEnv.Env.Load(envPath);
+
+       
+            _testDatabaseName = "test_" + Guid.NewGuid().ToString("N")[..8];
+
             _connectionString =
-    Environment.GetEnvironmentVariable("DatabaseSettings__ConnectionString")
-    ?? "mongodb://localhost:27017";
+                Environment.GetEnvironmentVariable("DatabaseSettings__ConnectionString")
+                ?? throw new Exception("MongoDB connection string missing");
         }
 
-        // Her test öncesi çalışır
-        public async Task InitializeAsync()
+        public Task InitializeAsync()
         {
-            // MongoDB'ye bağlan
-            _mongoClient = new MongoClient();
+
+            _mongoClient = new MongoClient(_connectionString);
+
             _database = _mongoClient.GetDatabase(_testDatabaseName);
 
-            // Repository oluştur 
             var collection = _database.GetCollection<Slider>("Sliders");
 
             _repository = new GenericRepository<Slider>(collection);
 
-            // Mapper oluştur
             var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
 
             var config = new MapperConfiguration(cfg =>
@@ -53,19 +67,16 @@ namespace TransportMongoDb.Tests.IntegrationTests
                     .ForMember(dest => dest.Id, opt => opt.Ignore());
 
                 cfg.CreateMap<UpdateSliderDto, Slider>();
-
                 cfg.CreateMap<Slider, ResultSliderDto>();
                 cfg.CreateMap<Slider, GetSliderByIdDto>();
             }, loggerFactory);
 
-            config.AssertConfigurationIsValid();
-
             _mapper = config.CreateMapper();
 
-            // Service oluştur 
             _sliderService = new SliderService(_repository, _mapper);
-        }
 
+            return Task.CompletedTask;
+        }
         // Her test sonrası çalışır (cleanup)
         public async Task DisposeAsync()
         {
@@ -199,6 +210,3 @@ namespace TransportMongoDb.Tests.IntegrationTests
 
     }
 }
-
-
-

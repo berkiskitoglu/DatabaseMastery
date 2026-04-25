@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".env" />
+  </Folder>
   <Project Path="DatabaseMastery.TransportMongoDb/DatabaseMastery.TransportMongoDb.csproj" />
   <Project Path="TransportMongoDb.Tests/TransportMongoDb.Tests.csproj" Id="3ff2e989-8bd3-4ccc-815a-8e45e6ca575e" />
 </Solution>
