@@ -59,16 +59,14 @@ namespace TransportMongoDb.Tests.IntegrationTests
 
             _repository = new GenericRepository<Slider>(collection);
 
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<CreateSliderDto, Slider>()
-                    .ForMember(dest => dest.Id, opt => opt.Ignore());
+            var expression = new MapperConfigurationExpression();
+            expression.CreateMap<CreateSliderDto, Slider>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+            expression.CreateMap<UpdateSliderDto, Slider>();
+            expression.CreateMap<Slider, ResultSliderDto>();
+            expression.CreateMap<Slider, GetSliderByIdDto>();
 
-                cfg.CreateMap<UpdateSliderDto, Slider>();
-                cfg.CreateMap<Slider, ResultSliderDto>();
-                cfg.CreateMap<Slider, GetSliderByIdDto>();
-            });
-
+            var config = new MapperConfiguration(expression);
             _mapper = config.CreateMapper();
 
             _sliderService = new SliderService(_repository, _mapper);
