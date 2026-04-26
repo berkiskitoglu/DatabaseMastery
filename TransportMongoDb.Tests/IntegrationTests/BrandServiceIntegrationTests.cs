@@ -1,46 +1,38 @@
 ﻿using DotNetEnv;
 using AutoMapper;
-using DatabaseMastery.TransportMongoDb.Dtos.SliderDtos;
+using DatabaseMastery.TransportMongoDb.Dtos.BrandDtos;
 using DatabaseMastery.TransportMongoDb.Entities;
-using DatabaseMastery.TransportMongoDb.Mapping;
 using DatabaseMastery.TransportMongoDb.Repositories;
-using DatabaseMastery.TransportMongoDb.Services.SliderServices;
-using Microsoft.Extensions.Logging;
+using DatabaseMastery.TransportMongoDb.Services.BrandServices;
 using MongoDB.Driver;
 using Xunit;
 
-
 namespace TransportMongoDb.Tests.IntegrationTests
 {
-    public class SliderServiceTests : IAsyncLifetime
+    public class BrandServiceTests : IAsyncLifetime
     {
-
         private IMongoClient _mongoClient;
         private IMongoDatabase _database;
-        private IGenericRepository<Slider> _repository;
+        private IGenericRepository<Brand> _repository;
         private IMapper _mapper;
-        private ISliderService _sliderService;
+        private IBrandService _brandService;
         private string _connectionString;
         private readonly string _testDatabaseName;
 
-        public SliderServiceTests()
+        public BrandServiceTests()
         {
-            // ✅ Solution folder'ı bul (DatabaseMastery folder'ı)
             var assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            var binPath = Path.GetDirectoryName(assemblyLocation);  // ...bin/Debug/net10.0
-            var testProjectPath = Directory.GetParent(binPath)?.Parent?.Parent?.FullName;  // TransportMongoDb.Tests
-            var solutionFolder = Directory.GetParent(testProjectPath)?.FullName;  // DatabaseMastery
+            var binPath = Path.GetDirectoryName(assemblyLocation);
+            var testProjectPath = Directory.GetParent(binPath)?.Parent?.Parent?.FullName;
+            var solutionFolder = Directory.GetParent(testProjectPath)?.FullName;
 
             var envPath = Path.Combine(solutionFolder ?? "", ".env");
 
             if (!File.Exists(envPath))
-            {
                 throw new Exception($".env file not found at {envPath}");
-            }
 
             DotNetEnv.Env.Load(envPath);
 
-       
             _testDatabaseName = "test_" + Guid.NewGuid().ToString("N")[..8];
 
             _connectionString =
@@ -50,30 +42,27 @@ namespace TransportMongoDb.Tests.IntegrationTests
 
         public Task InitializeAsync()
         {
-
             _mongoClient = new MongoClient(_connectionString);
-
             _database = _mongoClient.GetDatabase(_testDatabaseName);
 
-            var collection = _database.GetCollection<Slider>("Sliders");
-
-            _repository = new GenericRepository<Slider>(collection);
+            var collection = _database.GetCollection<Brand>("Brands");
+            _repository = new GenericRepository<Brand>(collection);
 
             var expression = new MapperConfigurationExpression();
-            expression.CreateMap<CreateSliderDto, Slider>()
+            expression.CreateMap<CreateBrandDto, Brand>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
-            expression.CreateMap<UpdateSliderDto, Slider>();
-            expression.CreateMap<Slider, ResultSliderDto>();
-            expression.CreateMap<Slider, GetSliderByIdDto>();
+            expression.CreateMap<UpdateBrandDto, Brand>();
+            expression.CreateMap<Brand, ResultBrandDto>();
+            expression.CreateMap<Brand, GetBrandByIdDto>();
 
             var config = new MapperConfiguration(expression);
             _mapper = config.CreateMapper();
 
-            _sliderService = new SliderService(_repository, _mapper);
+            _brandService = new BrandService(_repository, _mapper);
 
             return Task.CompletedTask;
         }
-        // Her test sonrası çalışır (cleanup)
+
         public async Task DisposeAsync()
         {
             if (_mongoClient != null)
@@ -86,68 +75,67 @@ namespace TransportMongoDb.Tests.IntegrationTests
         #region CREATE Tests
 
         [Fact]
-        public async Task CreateSliderAsync_Should_Save_To_Database()
+        public async Task CreateBrandAsync_Should_Save_To_Database()
         {
             // Arrange
-            var createDto = new CreateSliderDto
+            var createDto = new CreateBrandDto
             {
-                Title = "Integration Test",
-                SubTitle = "Test Sub",
-                Description = "Test Desc",
+                BrandName = "Integration Test Brand",
                 ImageUrl = "test.jpg"
             };
 
             // Act
-            await _sliderService.CreateSliderAsync(createDto);
+            await _brandService.CreateBrandAsync(createDto);
 
-            //Assert
+            // Assert
             var all = await _repository.GetAllAsync();
             Assert.Single(all);
-            Assert.Equal("Integration Test", all[0].Title);
-
+            Assert.Equal("Integration Test Brand", all[0].BrandName);
         }
 
         [Fact]
-        public async Task CreateSliderAsync_Multiple_Should_Be_Independent()
+        public async Task CreateBrandAsync_Multiple_Should_Be_Independent()
         {
             // Arrange
-            var dto1 = new CreateSliderDto { Title = "Slider 1", ImageUrl = "1.jpg" };
-            var dto2 = new CreateSliderDto { Title = "Slider 2", ImageUrl = "2.jpg" };
+            var dto1 = new CreateBrandDto { BrandName = "Brand 1", ImageUrl = "1.jpg" };
+            var dto2 = new CreateBrandDto { BrandName = "Brand 2", ImageUrl = "2.jpg" };
 
             // Act
-            await _sliderService.CreateSliderAsync(dto1);
-            await _sliderService.CreateSliderAsync(dto2);
+            await _brandService.CreateBrandAsync(dto1);
+            await _brandService.CreateBrandAsync(dto2);
 
             // Assert
             var all = await _repository.GetAllAsync();
             Assert.Equal(2, all.Count);
         }
+
         #endregion
 
         #region READ Tests
+
         [Fact]
-        public async Task GetAllSliderAsync_Should_Return_Empty_When_No_Data()
+        public async Task GetAllBrandAsync_Should_Return_Empty_When_No_Data()
         {
             // Act
-            var result = await _sliderService.GetAllSliderAsync();
+            var result = await _brandService.GetAllBrandAsync();
 
             // Assert
             Assert.Empty(result);
         }
 
         [Fact]
-        public async Task GetAllSliderAsync_Should_Return_All()
+        public async Task GetAllBrandAsync_Should_Return_All()
         {
             // Arrange
-            await _sliderService.CreateSliderAsync(
-                new CreateSliderDto { Title = "Slider 1", ImageUrl = "1.jpg" }
+            await _brandService.CreateBrandAsync(
+                new CreateBrandDto { BrandName = "Brand 1", ImageUrl = "1.jpg" }
             );
-            await _sliderService.CreateSliderAsync(
-                new CreateSliderDto { Title = "Slider 2", ImageUrl = "2.jpg" }
+            await _brandService.CreateBrandAsync(
+                new CreateBrandDto { BrandName = "Brand 2", ImageUrl = "2.jpg" }
             );
 
             // Act
-            var result = await _sliderService.GetAllSliderAsync();
+            var result = await _brandService.GetAllBrandAsync();
 
             // Assert
             Assert.Equal(2, result.Count);
@@ -156,53 +144,56 @@ namespace TransportMongoDb.Tests.IntegrationTests
         #endregion
 
         #region UPDATE Tests
+
         [Fact]
-        public async Task UpdateSliderAsync_Should_Update()
+        public async Task UpdateBrandAsync_Should_Update()
         {
             // Arrange
-            await _sliderService.CreateSliderAsync(
-                new CreateSliderDto { Title = "Original", ImageUrl = "orig.jpg" }
+            await _brandService.CreateBrandAsync(
+                new CreateBrandDto { BrandName = "Original Brand", ImageUrl = "orig.jpg" }
             );
 
             var all = await _repository.GetAllAsync();
             var id = all[0].Id;
 
-            var updateDto = new UpdateSliderDto
+            var updateDto = new UpdateBrandDto
             {
-
                 Id = id,
-                Title = "Updated",
+                BrandName = "Updated Brand",
                 ImageUrl = "updated.jpg"
             };
 
             // Act
-            await _sliderService.UpdateSliderAsync(updateDto);
+            await _brandService.UpdateBrandAsync(updateDto);
 
             // Assert
             var updated = await _repository.GetByIdAsync(id);
-            Assert.Equal("Updated", updated.Title);
+            Assert.Equal("Updated Brand", updated.BrandName);
         }
 
         #endregion
 
         #region DELETE Tests
+
         [Fact]
-        public async Task DeleteSliderAsync_Should_Remove()
+        public async Task DeleteBrandAsync_Should_Remove()
         {
             // Arrange
-            await _sliderService.CreateSliderAsync(new CreateSliderDto { Title = "Delete This", ImageUrl = "delete.jpg" });
+            await _brandService.CreateBrandAsync(
+                new CreateBrandDto { BrandName = "Delete This", ImageUrl = "delete.jpg" }
+            );
 
             var all = await _repository.GetAllAsync();
             var id = all[0].Id;
 
             // Act
-            await _sliderService.DeleteSliderAsync(id);
+            await _brandService.DeleteBrandAsync(id);
 
             // Assert
             var remaining = await _repository.GetAllAsync();
             Assert.Empty(remaining);
         }
-        #endregion
 
+        #endregion
     }
 }
