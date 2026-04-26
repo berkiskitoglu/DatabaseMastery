@@ -8,6 +8,8 @@ using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 var envPath = Path.Combine(Directory.GetCurrentDirectory(), "..", ".env");
 
 if (File.Exists(envPath))
@@ -18,6 +20,12 @@ if (File.Exists(envPath))
             builder.Configuration[parts[0].Trim().Replace("__", ":")] = parts[1].Trim();
     }
 
+builder.Configuration.AddEnvironmentVariables();
+
+// Debug
+Console.WriteLine($">>> ConnectionString: {builder.Configuration["DatabaseSettings:ConnectionString"]}");
+Console.WriteLine($">>> DatabaseName: {builder.Configuration["DatabaseSettings:DatabaseName"]}");
+Console.WriteLine($">>> SliderCollection: {builder.Configuration["DatabaseSettings:SliderCollectionName"]}");
 
 // Database Settings
 builder.Services.Configure<DatabaseSettings>(
@@ -34,22 +42,7 @@ builder.Services.AddSingleton<IDatabaseSettings>(sp =>
 });
 
 
-builder.Configuration.AddEnvironmentVariables();
 
-
-// Database Settings
-builder.Services.Configure<DatabaseSettings>(
-    builder.Configuration.GetSection("DatabaseSettings__ConnectionString"));
-
-builder.Services.AddSingleton<IDatabaseSettings>(sp =>
-{
-    var settings = sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
-
-    if (settings == null)
-        throw new Exception("DatabaseSettings is NULL - check Azure config");
-
-    return settings;
-});
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(GeneralMapping));
