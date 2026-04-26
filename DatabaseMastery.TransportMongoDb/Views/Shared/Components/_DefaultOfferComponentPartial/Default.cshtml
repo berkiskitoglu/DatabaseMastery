@@ -1,4 +1,6 @@
-﻿<section class="section mt-100">
+﻿@model List<ResultOfferDto>
+
+<section class="section mt-100">
     <div class="container">
         <h2 class="title-favicon mb-20">Neler Sunuyoruz</h2>
         <div class="row align-items-end">
@@ -16,15 +18,17 @@
         <div class="mt-20 box-background-offer">
             <div class="bg-under"></div>
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-offer hover-up">
-                        <div class="card-image"><img src="~/templates/assets/imgs/page/homepage1/cargo-ship.png" alt="taşımacılık"></div>
-                        <div class="card-info">
-                            <h5 class="color-brand-2 mb-15">Deniz Taşımacılığı</h5>
-                            <p class="font-sm color-grey-900 mb-35">12 yılı aşkın deneyimimiz ve 100 binden fazla tamamlanan sevkiyatımızla deniz yük taşımacılığında uzman kadromuzla hizmetinizdeyiz.</p>
-                            <div class="box-button-offer mb-30">
-                                <a class="btn btn-link font-sm color-brand-2">
-                                    Detayları Gör<span>
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card-offer hover-up">
+                            <div class="card-image"><img src="@item.ImageUrl" alt="taşımacılık"></div>
+                            <div class="card-info">
+                                <h5 class="color-brand-2 mb-15">@item.Title</h5>
+                                <p class="font-sm color-grey-900 mb-35">@item.Description</p>
+                                <div class="box-button-offer mb-30">
+                                    <a class="btn btn-link font-sm color-brand-2">
+                                        Detayları Gör<span>
                                         <svg class="w-6 h-6 icon-16" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                                         </svg>
@@ -34,96 +38,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-offer hover-up">
-                        <div class="card-image"><img src="~/templates/assets/imgs/page/homepage1/plane.png" alt="taşımacılık"></div>
-                        <div class="card-info">
-                            <h5 class="color-brand-2 mb-15">Hava Kargo Taşımacılığı</h5>
-                            <p class="font-sm color-grey-900 mb-35">12 yılı aşkın deneyimimiz ve 100 binden fazla tamamlanan sevkiyatımızla hava kargo taşımacılığında uzman kadromuzla hizmetinizdeyiz.</p>
-                            <div class="box-button-offer mb-30">
-                                <a class="btn btn-link font-sm color-brand-2">
-                                    Detayları Gör<span>
-                                        <svg class="w-6 h-6 icon-16" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-offer hover-up">
-                        <div class="card-image"><img src="~/templates/assets/imgs/page/homepage1/delivery.png" alt="taşımacılık"></div>
-                        <div class="card-info">
-                            <h5 class="color-brand-2 mb-15">Kara Taşımacılığı</h5>
-                            <p class="font-sm color-grey-900 mb-35">12 yılı aşkın deneyimimiz ve 100 binden fazla tamamlanan sevkiyatımızla kara yolu taşımacılığında uzman kadromuzla hizmetinizdeyiz.</p>
-                            <div class="box-button-offer mb-30">
-                                <a class="btn btn-link font-sm color-brand-2">
-                                    Detayları Gör<span>
-                                        <svg class="w-6 h-6 icon-16" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-offer hover-up">
-                        <div class="card-image"><img src="~/templates/assets/imgs/page/homepage1/forklift.png" alt="taşımacılık"></div>
-                        <div class="card-info">
-                            <h5 class="color-brand-2 mb-15">Depolama &amp; Dağıtım</h5>
-                            <p class="font-sm color-grey-900 mb-35">12 yılı aşkın deneyimimiz ve 100 binden fazla tamamlanan sevkiyatımızla depolama ve dağıtım hizmetlerinde uzman kadromuzla hizmetinizdeyiz.</p>
-                            <div class="box-button-offer mb-30">
-                                <a class="btn btn-link font-sm color-brand-2">
-                                    Detayları Gör<span>
-                                        <svg class="w-6 h-6 icon-16" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-offer hover-up">
-                        <div class="card-image"><img src="~/templates/assets/imgs/page/homepage1/train.png" alt="taşımacılık"></div>
-                        <div class="card-info">
-                            <h5 class="color-brand-2 mb-15">Demiryolu Lojistiği</h5>
-                            <p class="font-sm color-grey-900 mb-35">12 yılı aşkın deneyimimiz ve 100 binden fazla tamamlanan sevkiyatımızla demiryolu lojistiğinde uzman kadromuzla hizmetinizdeyiz.</p>
-                            <div class="box-button-offer mb-30">
-                                <a class="btn btn-link font-sm color-brand-2">
-                                    Detayları Gör<span>
-                                        <svg class="w-6 h-6 icon-16" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-offer hover-up">
-                        <div class="card-image"><img src="~/templates/assets/imgs/page/homepage1/worldwide.png" alt="taşımacılık"></div>
-                        <div class="card-info">
-                            <h5 class="color-brand-2 mb-15">Sınır Ötesi Taşımacılık</h5>
-                            <p class="font-sm color-grey-900 mb-35">12 yılı aşkın deneyimimiz ve 100 binden fazla tamamlanan sevkiyatımızla sınır ötesi taşımacılıkta uzman kadromuzla hizmetinizdeyiz.</p>
-                            <div class="box-button-offer mb-30">
-                                <a class="btn btn-link font-sm color-brand-2">
-                                    Detayları Gör<span>
-                                        <svg class="w-6 h-6 icon-16" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                }
+              
             </div>
         </div>
     </div>
