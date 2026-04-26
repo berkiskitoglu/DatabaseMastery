@@ -2,7 +2,7 @@
 
 namespace DatabaseMastery.TransportMongoDb.ViewComponents.AdminComponents
 {
-    public class AdminLayoutScriptComponentPartial : ViewComponent
+    public class _AdminLayoutScriptComponentPartial : ViewComponent
     {
         public IViewComponentResult Invoke()
         {
