@@ -59,8 +59,6 @@ namespace TransportMongoDb.Tests.IntegrationTests
 
             _repository = new GenericRepository<Slider>(collection);
 
-            var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<CreateSliderDto, Slider>()
@@ -69,7 +67,7 @@ namespace TransportMongoDb.Tests.IntegrationTests
                 cfg.CreateMap<UpdateSliderDto, Slider>();
                 cfg.CreateMap<Slider, ResultSliderDto>();
                 cfg.CreateMap<Slider, GetSliderByIdDto>();
-            }, loggerFactory);
+            });
 
             _mapper = config.CreateMapper();
 
