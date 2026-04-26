@@ -22,10 +22,6 @@ if (File.Exists(envPath))
 
 builder.Configuration.AddEnvironmentVariables();
 
-// Debug
-Console.WriteLine($">>> ConnectionString: {builder.Configuration["DatabaseSettings:ConnectionString"]}");
-Console.WriteLine($">>> DatabaseName: {builder.Configuration["DatabaseSettings:DatabaseName"]}");
-Console.WriteLine($">>> SliderCollection: {builder.Configuration["DatabaseSettings:SliderCollectionName"]}");
 
 // Database Settings
 builder.Services.Configure<DatabaseSettings>(
