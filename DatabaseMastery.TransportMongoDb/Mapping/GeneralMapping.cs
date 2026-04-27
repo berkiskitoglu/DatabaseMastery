@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DatabaseMastery.TransportMongoDb.Dtos.AboutDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.BrandDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.OfferDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.SliderDtos;
@@ -25,12 +26,19 @@ namespace DatabaseMastery.TransportMongoDb.Mapping
             CreateMap<Brand, ResultBrandDto>();
             CreateMap<Brand, GetBrandByIdDto>();
 
-            // Brand Mapping
+            // Offer Mapping
 
             CreateMap<CreateOfferDto, Offer>();
             CreateMap<UpdateOfferDto, Offer>();
             CreateMap<Offer, ResultOfferDto>();
             CreateMap<Offer, GetOfferByIdDto>();
+
+            // About Mapping
+
+            CreateMap<CreateAboutDto, About>();
+            CreateMap<UpdateAboutDto, About>();
+            CreateMap<About, ResultAboutDto>();
+            CreateMap<About, GetAboutByIdDto>();
         }
     }
 }

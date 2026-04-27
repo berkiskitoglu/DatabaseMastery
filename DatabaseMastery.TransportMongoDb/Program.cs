@@ -1,6 +1,7 @@
 using DatabaseMastery.TransportMongoDb.Entities;
 using DatabaseMastery.TransportMongoDb.Mapping;
 using DatabaseMastery.TransportMongoDb.Repositories;
+using DatabaseMastery.TransportMongoDb.Services.AboutServices;
 using DatabaseMastery.TransportMongoDb.Services.BrandServices;
 using DatabaseMastery.TransportMongoDb.Services.OfferServices;
 using DatabaseMastery.TransportMongoDb.Services.SliderServices;
@@ -96,6 +97,11 @@ builder.Services.AddScoped(sp =>
     var db = sp.GetRequiredService<IMongoDatabase>();
     return db.GetCollection<Offer>("Offers");
 });
+builder.Services.AddScoped(sp =>
+{
+    var db = sp.GetRequiredService<IMongoDatabase>();
+    return db.GetCollection<About>("Abouts");
+});
 
 
 
@@ -103,6 +109,7 @@ builder.Services.AddScoped(sp =>
 builder.Services.AddScoped<ISliderService, SliderService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IOfferService, OfferService>();
+builder.Services.AddScoped<IAboutService, AboutService>();
 
 
 var app = builder.Build();

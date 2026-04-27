@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DatabaseMastery.TransportMongoDb.Services.AboutServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DatabaseMastery.TransportMongoDb.ViewComponents.DefaultComponents
 {
     public class _DefaultAboutComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly IAboutService _aboutService;
+
+        public _DefaultAboutComponentPartial(IAboutService aboutService)
         {
-            return View();
+            _aboutService = aboutService;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var about = await _aboutService.GetAllAboutAsync();
+            return View(about.FirstOrDefault());
         }
     }
 }
