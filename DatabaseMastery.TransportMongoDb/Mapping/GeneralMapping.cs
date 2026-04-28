@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DatabaseMastery.TransportMongoDb.Dtos.AboutDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.BrandDtos;
+using DatabaseMastery.TransportMongoDb.Dtos.GetInTouchDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.OfferDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.SliderDtos;
 using DatabaseMastery.TransportMongoDb.Entities;
@@ -39,6 +40,13 @@ namespace DatabaseMastery.TransportMongoDb.Mapping
             CreateMap<UpdateAboutDto, About>();
             CreateMap<About, ResultAboutDto>();
             CreateMap<About, GetAboutByIdDto>();
+
+            // GetInTouch Mapping
+
+            CreateMap<CreateGetInTouchDto, GetInTouch>();
+            CreateMap<UpdateGetInTouchDto, GetInTouch>();
+            CreateMap<GetInTouch, ResultGetInTouchDto>();
+            CreateMap<GetInTouch, GetInTouchByIdDto>();
         }
     }
 }
