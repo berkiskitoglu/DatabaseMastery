@@ -85,7 +85,7 @@ namespace TransportMongoDb.Tests.IntegrationTests
                 ImageUrl = "img.jpg"
             };
 
-            await _service.CreateAsync(dto);
+            await _service.CreateGetInTouchAsync(dto);
 
             var all = await _repository.GetAllAsync();
 
