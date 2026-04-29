@@ -4,6 +4,7 @@ using DatabaseMastery.TransportMongoDb.Repositories;
 using DatabaseMastery.TransportMongoDb.Services.AboutServices;
 using DatabaseMastery.TransportMongoDb.Services.BrandServices;
 using DatabaseMastery.TransportMongoDb.Services.GetInTouchServices;
+using DatabaseMastery.TransportMongoDb.Services.HowItWorkServices;
 using DatabaseMastery.TransportMongoDb.Services.OfferServices;
 using DatabaseMastery.TransportMongoDb.Services.SliderServices;
 using DatabaseMastery.TransportMongoDb.Settings;
@@ -108,7 +109,11 @@ builder.Services.AddScoped(sp =>
     var db = sp.GetRequiredService<IMongoDatabase>();
     return db.GetCollection<GetInTouch>("GetInTouchs");
 });
-
+builder.Services.AddScoped(sp =>
+{
+    var db = sp.GetRequiredService<IMongoDatabase>();
+    return db.GetCollection<HowItWork>("HowItWorks");
+});
 
 
 // Services
@@ -117,6 +122,7 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IOfferService, OfferService>();
 builder.Services.AddScoped<IAboutService, AboutService>();
 builder.Services.AddScoped<IGetInTouchService, GetInTouchService>();
+builder.Services.AddScoped<IHowItWorkService, HowItWorkService>();
 
 
 var app = builder.Build();
