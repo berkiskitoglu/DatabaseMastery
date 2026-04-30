@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DatabaseMastery.TransportMongoDb.Services.TestimonialServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DatabaseMastery.TransportMongoDb.ViewComponents.DefaultComponents
 {
     public class _DefaultTestimonialComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly ITestimonialService _testimonialService;
+
+        public _DefaultTestimonialComponentPartial(ITestimonialService testimonialService)
         {
-            return View();
+            _testimonialService = testimonialService;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var testimonialList = await _testimonialService.GetAllTestimonialAsync();
+            return View(testimonialList);
         }
     }
 }

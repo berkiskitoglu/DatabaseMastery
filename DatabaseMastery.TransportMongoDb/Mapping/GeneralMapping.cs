@@ -5,6 +5,7 @@ using DatabaseMastery.TransportMongoDb.Dtos.GetInTouchDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.HowItWorkDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.OfferDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.SliderDtos;
+using DatabaseMastery.TransportMongoDb.Dtos.TestimonialDtos;
 using DatabaseMastery.TransportMongoDb.Entities;
 
 namespace DatabaseMastery.TransportMongoDb.Mapping
@@ -55,6 +56,13 @@ namespace DatabaseMastery.TransportMongoDb.Mapping
             CreateMap<UpdateHowItWorkDto, HowItWork>();
             CreateMap<HowItWork, ResultHowItWorkDto>();
             CreateMap<HowItWork, GetHowItWorkByIdDto>();
+
+            // Testimonial Mapping
+
+            CreateMap<CreateTestimonialDto, Testimonial>();
+            CreateMap<UpdateTestimonialDto, Testimonial>();
+            CreateMap<Testimonial, ResultTestimonialDto>();
+            CreateMap<Testimonial, GetTestimonialByIdDto>();
         }
     }
 }

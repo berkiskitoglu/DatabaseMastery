@@ -7,6 +7,7 @@ using DatabaseMastery.TransportMongoDb.Services.GetInTouchServices;
 using DatabaseMastery.TransportMongoDb.Services.HowItWorkServices;
 using DatabaseMastery.TransportMongoDb.Services.OfferServices;
 using DatabaseMastery.TransportMongoDb.Services.SliderServices;
+using DatabaseMastery.TransportMongoDb.Services.TestimonialServices;
 using DatabaseMastery.TransportMongoDb.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -115,6 +116,12 @@ builder.Services.AddScoped(sp =>
     return db.GetCollection<HowItWork>("HowItWorks");
 });
 
+builder.Services.AddScoped(sp =>
+{
+    var db = sp.GetRequiredService<IMongoDatabase>();
+    return db.GetCollection<Testimonial>("Testimonials");
+});
+
 
 // Services
 builder.Services.AddScoped<ISliderService, SliderService>();
@@ -123,6 +130,7 @@ builder.Services.AddScoped<IOfferService, OfferService>();
 builder.Services.AddScoped<IAboutService, AboutService>();
 builder.Services.AddScoped<IGetInTouchService, GetInTouchService>();
 builder.Services.AddScoped<IHowItWorkService, HowItWorkService>();
+builder.Services.AddScoped<ITestimonialService, TestimonialService>();
 
 
 var app = builder.Build();
