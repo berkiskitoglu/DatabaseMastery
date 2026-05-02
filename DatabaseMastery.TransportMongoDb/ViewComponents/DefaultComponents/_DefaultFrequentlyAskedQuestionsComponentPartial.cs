@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DatabaseMastery.TransportMongoDb.Services.QuestionServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DatabaseMastery.TransportMongoDb.ViewComponents.DefaultComponents
 {
     public class _DefaultFrequentlyAskedQuestionsComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly IQuestionService _questionService;
+
+        public _DefaultFrequentlyAskedQuestionsComponentPartial(IQuestionService questionService)
         {
-            return View();
+            _questionService = questionService;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var faq_list = await _questionService.GetAllQuestionAsync();
+            return View(faq_list);
         }
     }
 }

@@ -5,6 +5,7 @@ using DatabaseMastery.TransportMongoDb.Dtos.GetInTouchDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.HowItWorkDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.OfferDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.ProjectSectionDtos;
+using DatabaseMastery.TransportMongoDb.Dtos.QuestionDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.SliderDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.TestimonialDtos;
 using DatabaseMastery.TransportMongoDb.Entities;
@@ -71,6 +72,14 @@ namespace DatabaseMastery.TransportMongoDb.Mapping
             CreateMap<UpdateProjectSectionDto, ProjectSection>();
             CreateMap<ProjectSection, ResultProjectSectionDto>();
             CreateMap<ProjectSection, GetProjectSectionByIdDto>();
+
+            // Question Mapping
+
+            CreateMap<CreateQuestionDto, Question>();
+            CreateMap<UpdateQuestionDto, Question>();
+            CreateMap<Question, ResultQuestionDto>();
+            CreateMap<Question, GetQuestionByIdDto>();
+
         }
     }
 }

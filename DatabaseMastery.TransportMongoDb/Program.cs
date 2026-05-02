@@ -7,6 +7,7 @@ using DatabaseMastery.TransportMongoDb.Services.GetInTouchServices;
 using DatabaseMastery.TransportMongoDb.Services.HowItWorkServices;
 using DatabaseMastery.TransportMongoDb.Services.OfferServices;
 using DatabaseMastery.TransportMongoDb.Services.ProjectSectionServices;
+using DatabaseMastery.TransportMongoDb.Services.QuestionServices;
 using DatabaseMastery.TransportMongoDb.Services.SliderServices;
 using DatabaseMastery.TransportMongoDb.Services.TestimonialServices;
 using DatabaseMastery.TransportMongoDb.Settings;
@@ -129,6 +130,12 @@ builder.Services.AddScoped(sp =>
     return db.GetCollection<ProjectSection>("ProjectSections");
 });
 
+builder.Services.AddScoped(sp =>
+{
+    var db = sp.GetRequiredService<IMongoDatabase>();
+    return db.GetCollection<Question>("Questions");
+});
+
 // Services
 builder.Services.AddScoped<ISliderService, SliderService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
@@ -138,6 +145,7 @@ builder.Services.AddScoped<IGetInTouchService, GetInTouchService>();
 builder.Services.AddScoped<IHowItWorkService, HowItWorkService>();
 builder.Services.AddScoped<ITestimonialService, TestimonialService>();
 builder.Services.AddScoped<IProjectSectionService, ProjectSectionService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
 
 
 var app = builder.Build();
