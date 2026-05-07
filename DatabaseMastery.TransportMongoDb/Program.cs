@@ -8,6 +8,8 @@ using DatabaseMastery.TransportMongoDb.Services.HowItWorkServices;
 using DatabaseMastery.TransportMongoDb.Services.OfferServices;
 using DatabaseMastery.TransportMongoDb.Services.ProjectSectionServices;
 using DatabaseMastery.TransportMongoDb.Services.QuestionServices;
+using DatabaseMastery.TransportMongoDb.Services.ShipmentServices;
+using DatabaseMastery.TransportMongoDb.Services.ShipmentTrackingServices;
 using DatabaseMastery.TransportMongoDb.Services.SliderServices;
 using DatabaseMastery.TransportMongoDb.Services.TestimonialServices;
 using DatabaseMastery.TransportMongoDb.Settings;
@@ -135,6 +137,11 @@ builder.Services.AddScoped(sp =>
     var db = sp.GetRequiredService<IMongoDatabase>();
     return db.GetCollection<Question>("Questions");
 });
+builder.Services.AddScoped(sp =>
+{
+    var db = sp.GetRequiredService<IMongoDatabase>();
+    return db.GetCollection<Shipment>("Shipments");
+});
 
 // Services
 builder.Services.AddScoped<ISliderService, SliderService>();
@@ -146,6 +153,8 @@ builder.Services.AddScoped<IHowItWorkService, HowItWorkService>();
 builder.Services.AddScoped<ITestimonialService, TestimonialService>();
 builder.Services.AddScoped<IProjectSectionService, ProjectSectionService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IShipmentService, ShipmentService>();
+builder.Services.AddScoped<IShipmentTrackingService, ShipmentTrackingService>();
 
 
 var app = builder.Build();
