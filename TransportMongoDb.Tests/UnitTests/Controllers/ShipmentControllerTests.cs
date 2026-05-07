@@ -55,7 +55,7 @@ namespace TransportMongoDb.Tests.UnitTests.Controllers
             // Assert
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             string actionName = redirectResult.ActionName;
-            Assert.Equal("Index", actionName);
+            Assert.Equal("ShipmentList", actionName);
         }
 
         [Fact]
@@ -132,7 +132,7 @@ namespace TransportMongoDb.Tests.UnitTests.Controllers
             // Assert
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             string actionName = redirectResult.ActionName;
-            Assert.Equal("Index", actionName);
+            Assert.Equal("ShipmentList", actionName);
         }
 
         #endregion
@@ -218,7 +218,7 @@ namespace TransportMongoDb.Tests.UnitTests.Controllers
             // Assert
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
             string actionName = redirectResult.ActionName;
-            Assert.Equal("Index", actionName);
+            Assert.Equal("ShipmentList", actionName);
         }
 
         [Fact]
