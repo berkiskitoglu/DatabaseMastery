@@ -11,6 +11,7 @@ using DatabaseMastery.TransportMongoDb.Dtos.ShipmentTrackingDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.SliderDtos;
 using DatabaseMastery.TransportMongoDb.Dtos.TestimonialDtos;
 using DatabaseMastery.TransportMongoDb.Entities;
+using DatabaseMastery.TransportMongoDb.Models;
 
 namespace DatabaseMastery.TransportMongoDb.Mapping
 {
@@ -91,6 +92,12 @@ namespace DatabaseMastery.TransportMongoDb.Mapping
             CreateMap<ShipmentTracking, ResultShipmentTrackingDto>().ReverseMap();
             CreateMap<ShipmentTracking, UpdateShipmentTrackingDto>().ReverseMap();
 
+            CreateMap<ShipmentTracking, TrackingEventViewModel>();
+            CreateMap<GetShipmentByIdDto, TrackingResultViewModel>()
+                .ForMember(dest => dest.Events, opt => opt.MapFrom(src =>
+                    (src.Trackings ?? new List<ShipmentTracking>())
+                        .OrderByDescending(t => t.EventDate)
+                        .ToList()));
         }
     }
 }
