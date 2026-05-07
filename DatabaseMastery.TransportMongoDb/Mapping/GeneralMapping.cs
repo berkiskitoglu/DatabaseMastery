@@ -96,7 +96,7 @@ namespace DatabaseMastery.TransportMongoDb.Mapping
             CreateMap<GetShipmentByIdDto, TrackingResultViewModel>()
                 .ForMember(dest => dest.Events, opt => opt.MapFrom(src =>
                     (src.Trackings ?? new List<ShipmentTracking>())
-                        .OrderByDescending(t => t.EventDate)
+                        .OrderBy(t => t.EventDate)
                         .ToList()));
         }
     }
