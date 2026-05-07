@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![TransportMongoDB Banner]()
+![header](https://capsule-render.vercel.app/api?type=waving&color=0078D4&height=200&section=header&text=TransportMongoDB&fontSize=50&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Modern%20Lojistik%20Takip%20Platformu&descAlignY=58&descAlign=50)
 
 **Modern lojistik takip ve yönetim platformu**
 
@@ -22,7 +22,7 @@
 
 **TransportMongoDB**, ASP.NET Core MVC ve **MongoDB Atlas** altyapısı üzerine inşa edilmiş modern bir lojistik takip ve yönetim platformudur. Proje, [Murat Yücedağ](https://github.com/murataydg) hocamın eğitimi kapsamında **Claude Code** kullanılarak geliştirilmiş olup **AdminLTE admin teması**, backend mimarisi ve UI bileşenlerini kapsamaktadır.
 
-Projeye kişisel katkı olarak **Azure üzerinde deploy**, **GitHub Actions CI/CD pipeline** ve **xUnit & Mock ile test altyapısı** eklenmiştir.
+Projeye kişisel katkı olarak **Azure üzerinde deploy**, **GitHub Actions CI/CD pipeline** ve **xUnit & Moq ile test altyapısı** eklenmiştir.
 
 ---
 
@@ -32,19 +32,25 @@ Projeye kişisel katkı olarak **Azure üzerinde deploy**, **GitHub Actions CI/C
 <summary>📸 <b>Proje Ekran Görüntüleri</b> &nbsp;|&nbsp; Görmek için buraya tıklayın 👆</summary>
 
 ### 🏠 Anasayfa
-![]()
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/HomePage.png)
 
 ### 📦 Kargo Takip
-![]()
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/User_Cargo.png)
 
 ### 🛠️ Admin Paneli
-![]()
-
-### 📊 Dashboard
-![]()
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/Slider-01.png)
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/Brand-02.png)
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/Services-03.png)
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/About-04.png)
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/WhatWeHaveDone-05.png)
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/HowItWork-06.png)
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/References-07.png)
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/Projects-08.png)
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/FAQ-09.png)
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/Cargo-10.png)
 
 ### 🔄 CI/CD Pipeline
-![]()
+![](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/Pipeline_CI%26CD.png)
 
 </details>
 
@@ -135,7 +141,7 @@ Push / PR → GitHub Actions Tetiklenir
      ❌ Hayır → Pipeline Durur
 ```
 
-![CI/CD Pipeline](docs/screenshots/Pipeline_CI_CD.png)
+![CI/CD Pipeline](https://github.com/berkiskitoglu/DatabaseMastery/blob/master/DatabaseMastery.TransportMongoDb/wwwroot/img_transport/Pipeline_CI%26CD.png)
 
 `.github/workflows/` dizininde YAML pipeline tanımı bulunmaktadır.
 
@@ -150,6 +156,8 @@ Proje **Azure Web App Service** üzerinde host edilmektedir. MongoDB bağlantıs
 | Uygulama | Azure Web App |
 | Veritabanı | MongoDB Atlas |
 | CI/CD | GitHub Actions |
+
+🌐 **Canlı Demo:** [transport-logistic-fgagegajfea5a9f6.canadacentral-01.azurewebsites.net](https://transport-logistic-fgagegajfea5a9f6.canadacentral-01.azurewebsites.net/)
 
 ---
 
