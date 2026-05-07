@@ -3,6 +3,8 @@ using DatabaseMastery.TransportMongoDb.Dtos.ShipmentDtos;
 using DatabaseMastery.TransportMongoDb.Services.ShipmentServices;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Xunit;
+using Assert = Xunit.Assert;
 
 namespace TransportMongoDb.Tests.UnitTests.Controllers
 {
@@ -52,7 +54,8 @@ namespace TransportMongoDb.Tests.UnitTests.Controllers
 
             // Assert
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectResult.ActionName);
+            string actionName = redirectResult.ActionName;
+            Assert.Equal("Index", actionName);
         }
 
         [Fact]
@@ -128,7 +131,8 @@ namespace TransportMongoDb.Tests.UnitTests.Controllers
 
             // Assert
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectResult.ActionName);
+            string actionName = redirectResult.ActionName;
+            Assert.Equal("Index", actionName);
         }
 
         #endregion
@@ -147,7 +151,7 @@ namespace TransportMongoDb.Tests.UnitTests.Controllers
             _mockService.Setup(x => x.GetAllShipmentAsync()).ReturnsAsync(shipments);
 
             // Act
-            var result = await _controller.Index();
+            var result = await _controller.ShipmentList();
 
             // Assert
             _mockService.Verify(x => x.GetAllShipmentAsync(), Times.Once);
@@ -164,7 +168,7 @@ namespace TransportMongoDb.Tests.UnitTests.Controllers
             _mockService.Setup(x => x.GetAllShipmentAsync()).ReturnsAsync(shipments);
 
             // Act
-            var result = await _controller.Index();
+            var result = await _controller.ShipmentList();
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -213,7 +217,8 @@ namespace TransportMongoDb.Tests.UnitTests.Controllers
 
             // Assert
             var redirectResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectResult.ActionName);
+            string actionName = redirectResult.ActionName;
+            Assert.Equal("Index", actionName);
         }
 
         [Fact]
@@ -259,7 +264,7 @@ namespace TransportMongoDb.Tests.UnitTests.Controllers
             _mockService.Setup(x => x.GetTotalShipmentCountAsync()).ReturnsAsync(5);
 
             // Act
-            var result = await _shipmentService.GetTotalShipmentCountAsync();
+            var result = await _mockService.Object.GetTotalShipmentCountAsync();
 
             // Assert
             Assert.Equal(5, result);
